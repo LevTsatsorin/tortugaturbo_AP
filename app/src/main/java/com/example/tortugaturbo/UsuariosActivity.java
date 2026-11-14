@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.Collections;
@@ -31,6 +32,7 @@ public class UsuariosActivity extends AppCompatActivity {
     private UsuariosAdapter adapter;
     private ProgressBar progreso;
     private boolean valido;
+    private ListenerRegistration escuchaSesion;
     private EditText campoBuscar;
     private ChipGroup grupoFiltro;
     private RecyclerView lista;
@@ -105,8 +107,22 @@ public class UsuariosActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (escuchaSesion != null) {
+            escuchaSesion.remove();
+            escuchaSesion = null;
+        }
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
+        escuchaSesion = Sesion.vigilar(this, () -> {
+            if (!Sesion.esOperador()) {
+                finish();
+            }
+        });
         if (!valido) {
             return;
         }

@@ -51,14 +51,14 @@ final class SimulacionScheduler {
                     Random random = new Random();
                     for (DocumentSnapshot d : snap.getDocuments()) {
                         Envio e = d.toObject(Envio.class);
-                        if (e == null || e.getEstado() == null || e.getServicio() == null || e.isPausado()) {
+                        if (e == null || e.getEstado() == null || e.getServicio() == null) {
                             continue;
                         }
                         try {
                             if (e.getEstadoEnum().esFinal()) {
                                 continue;
                             }
-                            programar(app, d.getId(), SimuladorRuta.demoraSegundos(e.getServicioEnum(), random));
+                            programar(app, d.getId(), e.isPausado() ? 60 : SimuladorRuta.demoraSegundos(e.getServicioEnum(), random));
                         } catch (IllegalArgumentException ignorado) {
                         }
                     }

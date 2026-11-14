@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
     private TextView botonCuenta;
     private TextView textoSaludo;
     private ListenerRegistration escucha;
+    private boolean eraOperador;
     private ListenerRegistration escuchaEnvios;
     private Chip chipRol;
     private TextView textoResumen;
@@ -81,6 +82,10 @@ public class HomeActivity extends AppCompatActivity {
             return;
         }
         setContentView(R.layout.activity_home);
+        String envioId = getIntent().getStringExtra("ENVIO_ID");
+        if (envioId != null && savedInstanceState == null) {
+            abrirDetalle(envioId);
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.ime());
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
@@ -153,35 +158,14 @@ public class HomeActivity extends AppCompatActivity {
         if (actual == null) {
             return;
         }
-        escucha = UsuariosFirestore.escuchar(actual.getUid(), new Resultado<Usuario>() {
-            @Override
-            public void ok(Usuario u) {
-                if (isFinishing() || isDestroyed()) {
-                    return;
+        eraOperador = Sesion.esOperador();
+        escucha = Sesion.vigilar(this, () -> {
+            refrescar();
+            if (eraOperador != Sesion.esOperador()) {
+                eraOperador = Sesion.esOperador();
+                if (escuchaEnvios != null) {
+                    escucharEnvios();
                 }
-                if (u == null || !u.isActivo()) {
-                    detener();
-                    Toast.makeText(HomeActivity.this, R.string.error_cuenta_desactivada_kick, Toast.LENGTH_LONG).show();
-                    Sesion.cerrar(HomeActivity.this);
-                    return;
-                }
-                Usuario s = Sesion.actual();
-                if (s != null) {
-                    boolean eraOperador = Sesion.esOperador();
-                    s.setRol(u.getRol());
-                    s.setNombre(u.getNombre());
-                    s.setApellido(u.getApellido());
-                    s.setTelefono(u.getTelefono());
-                    s.setActivo(u.isActivo());
-                    refrescar();
-                    if (eraOperador != Sesion.esOperador() && escuchaEnvios != null) {
-                        escucharEnvios();
-                    }
-                }
-            }
-
-            @Override
-            public void error(Exception e) {
             }
         });
         handler.postDelayed(tick, 30000);

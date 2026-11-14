@@ -43,6 +43,7 @@ public class EnvioDetalleActivity extends AppCompatActivity {
     private String tracking;
     private Envio envio;
     private ListenerRegistration escucha;
+    private ListenerRegistration escuchaSesion;
     private Bitmap qr;
     private boolean ocupado;
     private boolean eliminando;
@@ -70,7 +71,7 @@ public class EnvioDetalleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT), SystemBarStyle.dark(Color.TRANSPARENT));
         if (Sesion.actual() == null) {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class).putExtra("ENVIO_ID", getIntent().getStringExtra("ENVIO_ID")));
             finish();
             return;
         }
@@ -137,6 +138,11 @@ public class EnvioDetalleActivity extends AppCompatActivity {
         if (tracking == null || Sesion.actual() == null) {
             return;
         }
+        escuchaSesion = Sesion.vigilar(this, () -> {
+            if (envio != null) {
+                mostrar(envio);
+            }
+        });
         escucha = EnviosFirestore.escuchar(tracking, new Resultado<Envio>() {
             @Override
             public void ok(Envio e) {
@@ -167,6 +173,10 @@ public class EnvioDetalleActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         cerrarDialogo();
+        if (escuchaSesion != null) {
+            escuchaSesion.remove();
+            escuchaSesion = null;
+        }
         if (escucha != null) {
             escucha.remove();
             escucha = null;

@@ -264,10 +264,9 @@ public final class EnviosFirestore {
     }
 
     public static void reanudar(Envio e, Resultado<Void> r) {
-        int demora = SimuladorRuta.demoraSegundos(e.getServicioEnum(), new Random());
         esperar(doc(e.getTracking()).update(
                         "pausado", false,
-                        "proximoPasoEn", en(demora),
+                        "proximoPasoEn", Timestamp.now(),
                         "actualizadoEn", Timestamp.now()), null, r);
     }
 
