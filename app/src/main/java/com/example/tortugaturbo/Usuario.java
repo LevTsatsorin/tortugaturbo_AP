@@ -15,6 +15,7 @@ public class Usuario {
     private String telefono;
     private String rol;
     private boolean activo;
+    private String avatar;
     private Timestamp creadoEn;
 
     public Usuario() {
@@ -74,6 +75,14 @@ public class Usuario {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @ServerTimestamp

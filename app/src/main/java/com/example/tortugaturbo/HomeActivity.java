@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.inputmethod.EditorInfo;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,9 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView botonCuenta;
+    private View botonCuenta;
+    private TextView botonCuentaIniciales;
+    private ImageView botonCuentaFoto;
     private TextView textoSaludo;
     private ListenerRegistration escucha;
     private boolean eraOperador;
@@ -98,6 +101,8 @@ public class HomeActivity extends AppCompatActivity {
         });
         textoSaludo = findViewById(R.id.textoSaludo);
         botonCuenta = findViewById(R.id.botonCuenta);
+        botonCuentaIniciales = findViewById(R.id.botonCuentaIniciales);
+        botonCuentaFoto = findViewById(R.id.botonCuentaFoto);
         botonCuenta.setOnClickListener(v -> abrirCuenta());
         chipRol = findViewById(R.id.chipRol);
         chipRol.setChipBackgroundColor(android.content.res.ColorStateList.valueOf(0x40FFFFFF));
@@ -320,7 +325,8 @@ public class HomeActivity extends AppCompatActivity {
         numEntregados.setText(String.valueOf(entregados));
         numCancelados.setText(String.valueOf(cancelados));
         headerCuenta.setText(String.valueOf(lista.size()));
-        textoResumen.setText(curso == 0 ? getString(R.string.home_resumen_nada)
+        textoResumen.setText(lista.isEmpty() ? getString(R.string.home_resumen_vacio)
+                : curso == 0 ? getString(R.string.home_resumen_nada)
                 : getResources().getQuantityString(R.plurals.home_resumen_en_curso, curso, curso));
         textoSinEnvios.setVisibility(lista.isEmpty() ? View.VISIBLE : View.GONE);
         adapter.setItems(lista);
@@ -362,7 +368,7 @@ public class HomeActivity extends AppCompatActivity {
         Usuario u = Sesion.actual();
         if (u != null && textoSaludo != null) {
             textoSaludo.setText(getString(R.string.home_saludo, u.getNombre()));
-            botonCuenta.setText(Usuario.iniciales(u));
+            Avatar.mostrar(botonCuentaFoto, botonCuentaIniciales, u);
             headerTitulo.setText(u.esOperador() ? R.string.home_todos_envios : R.string.home_tus_envios);
             chipRol.setText(u.esOperador() ? R.string.perfil_rol_operador : R.string.perfil_rol_cliente);
         }
@@ -381,7 +387,7 @@ public class HomeActivity extends AppCompatActivity {
         if (contenedor != null) {
             contenedor.setBackgroundColor(Color.TRANSPARENT);
         }
-        ((TextView) v.findViewById(R.id.sheetAvatar)).setText(Usuario.iniciales(u));
+        Avatar.mostrar(v.findViewById(R.id.sheetAvatarFoto), v.findViewById(R.id.sheetAvatar), u);
         ((TextView) v.findViewById(R.id.sheetNombre)).setText(u.getNombreCompleto());
         ((TextView) v.findViewById(R.id.sheetEmail)).setText(u.getEmail());
         ((Chip) v.findViewById(R.id.sheetRol)).setText(u.esOperador() ? R.string.perfil_rol_operador : R.string.perfil_rol_cliente);

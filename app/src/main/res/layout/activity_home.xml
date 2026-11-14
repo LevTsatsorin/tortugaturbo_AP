@@ -25,20 +25,36 @@
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/marca_tortuga_turbo" />
 
-            <TextView
+            <FrameLayout
                 android:id="@+id/botonCuenta"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_gravity="end"
                 android:layout_marginEnd="12dp"
-                android:background="@drawable/bg_avatar"
                 android:clickable="true"
                 android:contentDescription="@string/home_cuenta"
-                android:focusable="true"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/botonCuentaIniciales"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_avatar"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/botonCuentaFoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/perfil_foto_desc"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.TortugaTurbo.Avatar" />
+
+            </FrameLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
 

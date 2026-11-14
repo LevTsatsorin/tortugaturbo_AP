@@ -39,15 +39,59 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/avatar"
+                    <FrameLayout
+                        android:id="@+id/avatarCaja"
                         android:layout_width="72dp"
                         android:layout_height="72dp"
-                        android:background="@drawable/bg_avatar"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="28sp"
-                        android:textStyle="bold" />
+                        android:clipChildren="false">
+
+                        <TextView
+                            android:id="@+id/avatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_avatar"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="28sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/avatarFoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/perfil_foto_desc"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.TortugaTurbo.Avatar" />
+
+                        <ProgressBar
+                            android:id="@+id/avatarProgreso"
+                            style="?android:attr/progressBarStyleSmall"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/avatarCamara"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="bottom|end"
+                            android:background="@drawable/bg_avatar"
+                            android:contentDescription="@string/perfil_cambiar_foto"
+                            android:padding="4dp"
+                            android:src="@drawable/ic_photo_camera"
+                            android:visibility="gone" />
+
+                    </FrameLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/botonCambiarFoto"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/perfil_cambiar_foto"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/textoNombreCompleto"

@@ -1,12 +1,16 @@
 package com.example.tortugaturbo;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
@@ -16,6 +20,9 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -46,6 +53,13 @@ public class PerfilActivity extends AppCompatActivity {
     private TextInputLayout tilTelefono;
     private TextView textoEmail;
     private TextView avatar;
+    private ImageView avatarFoto;
+    private View avatarProgreso;
+    private View avatarCamara;
+    private View botonCambiarFoto;
+    private boolean subiendoFoto;
+    private ActivityResultLauncher<Void> lanzarCamara;
+    private ActivityResultLauncher<PickVisualMediaRequest> lanzarGaleria;
     private TextView textoNombreCompleto;
     private TextView textoPeligro;
     private Chip chipRol;
@@ -93,6 +107,18 @@ public class PerfilActivity extends AppCompatActivity {
         campoTelefono = findViewById(R.id.campoTelefono);
         textoEmail = findViewById(R.id.textoEmail);
         avatar = findViewById(R.id.avatar);
+        avatarFoto = findViewById(R.id.avatarFoto);
+        avatarProgreso = findViewById(R.id.avatarProgreso);
+        avatarCamara = findViewById(R.id.avatarCamara);
+        botonCambiarFoto = findViewById(R.id.botonCambiarFoto);
+        if (propio) {
+            lanzarCamara = registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), this::procesarBitmap);
+            lanzarGaleria = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), this::procesarUri);
+            avatarCamara.setVisibility(View.VISIBLE);
+            botonCambiarFoto.setVisibility(View.VISIBLE);
+            avatarCamara.setOnClickListener(v -> opcionesFoto());
+            botonCambiarFoto.setOnClickListener(v -> opcionesFoto());
+        }
         textoNombreCompleto = findViewById(R.id.textoNombreCompleto);
         textoPeligro = findViewById(R.id.textoPeligro);
         chipRol = findViewById(R.id.chipRol);
@@ -168,7 +194,7 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     private void refrescarCabecera(Usuario u) {
-        avatar.setText(Usuario.iniciales(u));
+        Avatar.mostrar(avatarFoto, avatar, u);
         textoNombreCompleto.setText(u.getNombreCompleto());
         chipRol.setText(u.esOperador() ? R.string.perfil_rol_operador : R.string.perfil_rol_cliente);
         if (!propio) {
@@ -182,6 +208,119 @@ public class PerfilActivity extends AppCompatActivity {
             botonPeligro.setStrokeColor(ColorStateList.valueOf(color));
             textoPeligro.setText(u.isActivo() ? R.string.perfil_desactivar_explicacion : R.string.perfil_reactivar_explicacion);
         }
+    }
+
+    private void opcionesFoto() {
+        if (objetivo == null || subiendoFoto) {
+            return;
+        }
+        boolean hay = objetivo.getAvatar() != null && !objetivo.getAvatar().isEmpty();
+        String[] items = hay
+                ? new String[]{getString(R.string.perfil_sacar_foto), getString(R.string.perfil_elegir_galeria), getString(R.string.perfil_quitar_foto)}
+                : new String[]{getString(R.string.perfil_sacar_foto), getString(R.string.perfil_elegir_galeria)};
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.perfil_cambiar_foto)
+                .setItems(items, (d, i) -> {
+                    if (i == 0) {
+                        try {
+                            lanzarCamara.launch(null);
+                        } catch (ActivityNotFoundException e) {
+                            Toast.makeText(this, R.string.perfil_sin_camara, Toast.LENGTH_LONG).show();
+                        }
+                    } else if (i == 1) {
+                        lanzarGaleria.launch(new PickVisualMediaRequest.Builder()
+                                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE).build());
+                    } else {
+                        confirmarQuitarFoto();
+                    }
+                })
+                .show();
+    }
+
+    private void confirmarQuitarFoto() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.perfil_quitar_foto_titulo)
+                .setNegativeButton(R.string.accion_cancelar, null)
+                .setPositiveButton(R.string.perfil_quitar_foto, (d, w) -> guardarAvatar(null, R.string.perfil_foto_quitada))
+                .show();
+    }
+
+    private void procesarBitmap(Bitmap b) {
+        if (b == null) {
+            return;
+        }
+        trabajoFoto(() -> b);
+    }
+
+    private void procesarUri(Uri uri) {
+        if (uri == null) {
+            return;
+        }
+        trabajoFoto(() -> Avatar.decodificarUri(getApplicationContext(), uri));
+    }
+
+    private interface Fuente {
+        Bitmap obtener() throws Exception;
+    }
+
+    private void trabajoFoto(Fuente fuente) {
+        if (subiendoFoto) {
+            return;
+        }
+        enCurso(true);
+        AppExecutors.background().execute(() -> {
+            String base64;
+            try {
+                base64 = Avatar.codificar(fuente.obtener());
+            } catch (Exception | OutOfMemoryError e) {
+                base64 = null;
+            }
+            String resultado = base64;
+            AppExecutors.main().post(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                if (resultado == null || resultado.length() > Avatar.MAX_CHARS) {
+                    enCurso(false);
+                    Toast.makeText(this, R.string.perfil_foto_error, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                guardarAvatar(resultado, R.string.perfil_foto_actualizada);
+            });
+        });
+    }
+
+    private void guardarAvatar(String base64, int aviso) {
+        enCurso(true);
+        UsuariosFirestore.cambiarAvatar(objetivo.getUid(), base64, new Resultado<Void>() {
+            @Override
+            public void ok(Void v) {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                enCurso(false);
+                objetivo.setAvatar(base64);
+                Sesion.actual().setAvatar(base64);
+                refrescarCabecera(objetivo);
+                Snackbar.make(findViewById(R.id.main), aviso, Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void error(Exception e) {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                enCurso(false);
+                Snackbar.make(findViewById(R.id.main), UsuariosFirestore.mensajeError(PerfilActivity.this, e), Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void enCurso(boolean activo) {
+        subiendoFoto = activo;
+        avatarProgreso.setVisibility(activo ? View.VISIBLE : View.GONE);
+        avatarCamara.setEnabled(!activo);
+        botonCambiarFoto.setEnabled(!activo);
     }
 
     private void ocupado(boolean ocupado) {
