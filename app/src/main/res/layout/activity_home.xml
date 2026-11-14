@@ -1,93 +1,491 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_pantalla"
-    android:orientation="vertical">
+    android:background="@drawable/bg_home">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:title="@string/app_name"
-        app:titleTextColor="@color/texto">
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/botonCuenta"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/bg_avatar"
-            android:clickable="true"
-            android:contentDescription="@string/home_cuenta"
-            android:focusable="true"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
 
-    </com.google.android.material.appbar.MaterialToolbar>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_gravity="start|center_vertical"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/marca_tortuga_turbo" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            <TextView
+                android:id="@+id/botonCuenta"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/bg_avatar"
+                android:clickable="true"
+                android:contentDescription="@string/home_cuenta"
+                android:focusable="true"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="20dp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_hero"
+                    android:minHeight="128dp"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp"
+                    android:paddingTop="18dp"
+                    android:paddingEnd="160dp"
+                    android:paddingBottom="18dp">
+
+                    <TextView
+                        android:id="@+id/textoSaludo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:shadowColor="#40000000"
+                        android:shadowDy="2"
+                        android:shadowRadius="4"
+                        android:textColor="@color/white"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipRol"
+                        style="@style/Widget.TortugaTurbo.Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:chipBackgroundColor="#40FFFFFF"
+                        app:chipMinHeight="24dp"
+                        app:ensureMinTouchTargetSize="false" />
+
+                    <TextView
+                        android:id="@+id/textoResumen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="#E6FFFFFF"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="124dp"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="-6dp"
+                android:layout_marginBottom="-6dp"
+                android:adjustViewBounds="true"
+                android:importantForAccessibility="no"
+                android:src="@drawable/mascota_tortuga" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="13dp">
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.TortugaTurbo.Card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="3dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/superficie"
+            app:contentPadding="0dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/white" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="8dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_inventory"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/numTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:maxLines="1"
+                    android:text="@string/home_total"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="12sp"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.TortugaTurbo.Card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="3dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#26FFB300"
+            app:contentPadding="0dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/turbo_amarillo" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="8dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_local_shipping"
+                    app:tint="@color/turbo_amarillo" />
+
+                <TextView
+                    android:id="@+id/numEnCurso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/turbo_amarillo"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:maxLines="1"
+                    android:text="@string/home_en_curso"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="12sp"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.TortugaTurbo.Card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="3dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#267CC31E"
+            app:contentPadding="0dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/tortuga_verde" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="8dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_check_circle"
+                    app:tint="@color/tortuga_verde" />
+
+                <TextView
+                    android:id="@+id/numEntregados"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/tortuga_verde"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:maxLines="1"
+                    android:text="@string/home_entregados"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="12sp"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.TortugaTurbo.Card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="3dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#26FF5252"
+            app:contentPadding="0dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/peligro" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="8dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_cancel"
+                    app:tint="@color/peligro" />
+
+                <TextView
+                    android:id="@+id/numCancelados"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/peligro"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:maxLines="1"
+                    android:text="@string/home_cancelados"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="12sp"
+                    app:autoSizeMaxTextSize="12sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:gravity="top"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilBuscar"
+                style="@style/Widget.TortugaTurbo.TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/home_buscar_hint"
+                app:endIconContentDescription="@string/home_buscar"
+                app:endIconDrawable="@drawable/ic_search"
+                app:endIconMode="custom"
+                app:helperText="@string/home_buscar_helper">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/campoBuscar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textCapCharacters"
+                    android:maxLength="14"
+                    android:minHeight="56dp"
+                    android:singleLine="true"
+                    android:textColor="@color/texto" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/botonEscanear"
+                style="@style/Widget.Material3.Button.IconButton.Outlined"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/home_escanear"
+                app:icon="@drawable/ic_qr_scan"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/turbo_amarillo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp">
 
             <TextView
-                android:id="@+id/textoSaludo"
-                android:layout_width="wrap_content"
+                android:id="@+id/headerTitulo"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:textColor="@color/texto"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/botonEnvioPrueba"
+            <TextView
+                android:id="@+id/headerCuenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/texto_secundario"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lista"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="@color/turbo_naranja"
-                android:text="@string/home_envio_prueba"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="96dp" />
+
+            <LinearLayout
+                android:id="@+id/textoSinEnvios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="120dp"
+                    android:adjustViewBounds="true"
+                    android:alpha="0.6"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/mascota_tortuga" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/home_sin_envios"
+                    android:textColor="@color/texto"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/home_vacio_ayuda"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/progresoEnvio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="12dp"
+                android:layout_gravity="center"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/textoSinEnvios"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:text="@string/home_sin_envios"
-                android:textColor="@color/texto_secundario"
-                android:textSize="14sp"
-                android:visibility="gone" />
+        </FrameLayout>
 
-            <LinearLayout
-                android:id="@+id/listaEnvios"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical" />
+    </LinearLayout>
 
-        </LinearLayout>
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/botonNuevo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="@string/home_nuevo_envio"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/turbo_naranja"
+        app:elevation="8dp"
+        app:icon="@drawable/ic_add"
+        app:iconTint="@color/white" />
 
-    </androidx.core.widget.NestedScrollView>
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
