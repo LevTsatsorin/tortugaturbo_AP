@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +26,18 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.firestore.ListenerRegistration;
 
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
 
     private TextView botonCuenta;
     private TextView textoSaludo;
     private ListenerRegistration escucha;
+    private ListenerRegistration escuchaEnvios;
+    private Button botonEnvioPrueba;
+    private View progresoEnvio;
+    private View textoSinEnvios;
+    private LinearLayout listaEnvios;
     private BottomSheetDialog hoja;
 
     @Override
@@ -49,6 +58,11 @@ public class HomeActivity extends AppCompatActivity {
         textoSaludo = findViewById(R.id.textoSaludo);
         botonCuenta = findViewById(R.id.botonCuenta);
         botonCuenta.setOnClickListener(v -> abrirCuenta());
+        botonEnvioPrueba = findViewById(R.id.botonEnvioPrueba);
+        progresoEnvio = findViewById(R.id.progresoEnvio);
+        textoSinEnvios = findViewById(R.id.textoSinEnvios);
+        listaEnvios = findViewById(R.id.listaEnvios);
+        botonEnvioPrueba.setOnClickListener(v -> crearPrueba());
         if (Build.VERSION.SDK_INT >= 33
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -91,6 +105,85 @@ public class HomeActivity extends AppCompatActivity {
             public void error(Exception e) {
             }
         });
+        escuchaEnvios = EnviosFirestore.escucharLista(new Resultado<List<Envio>>() {
+            @Override
+            public void ok(List<Envio> lista) {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                mostrarEnvios(lista);
+            }
+
+            @Override
+            public void error(Exception e) {
+            }
+        });
+    }
+
+    private void crearPrueba() {
+        botonEnvioPrueba.setEnabled(false);
+        progresoEnvio.setVisibility(View.VISIBLE);
+        Envio b = new Envio();
+        b.setDestinatarioNombre(getString(R.string.demo_destinatario));
+        b.setDestinatarioTelefono(getString(R.string.demo_telefono));
+        b.setDireccion(getString(R.string.demo_direccion));
+        b.setOrigen(Ciudad.BUENOS_AIRES.name());
+        b.setDestino(Ciudad.USHUAIA.name());
+        b.setPesoKg(1.5);
+        b.setServicio(Servicio.EXPRESS.name());
+        b.setDescripcion("");
+        EnviosFirestore.crear(this, b, new Resultado<String>() {
+            @Override
+            public void ok(String tracking) {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                terminarPrueba();
+                Toast.makeText(HomeActivity.this, getString(R.string.home_envio_creado, tracking), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void error(Exception e) {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                terminarPrueba();
+                Toast.makeText(HomeActivity.this, UsuariosFirestore.mensajeError(HomeActivity.this, e), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void terminarPrueba() {
+        botonEnvioPrueba.setEnabled(true);
+        progresoEnvio.setVisibility(View.GONE);
+    }
+
+    private void mostrarEnvios(List<Envio> lista) {
+        listaEnvios.removeAllViews();
+        textoSinEnvios.setVisibility(lista.isEmpty() ? View.VISIBLE : View.GONE);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        for (Envio e : lista) {
+            View fila = inflater.inflate(R.layout.item_envio_demo, listaEnvios, false);
+            ((TextView) fila.findViewById(R.id.itemTracking)).setText(e.getTracking());
+            ((TextView) fila.findViewById(R.id.itemRuta)).setText(getString(R.string.home_ruta,
+                    Notificador.etiquetaCiudad(this, e.getOrigen()), Notificador.etiquetaCiudad(this, e.getDestino())));
+            TextView estadoView = fila.findViewById(R.id.itemEstado);
+            EstadoEnvio estado = null;
+            try {
+                estado = e.getEstadoEnum();
+            } catch (IllegalArgumentException ignorado) {
+            }
+            if (estado != null) {
+                estadoView.setText(estado.getEtiqueta());
+                estadoView.setTextColor(ContextCompat.getColor(this, estado.getColor()));
+            }
+            List<EventoEnvio> eventos = e.getEventos();
+            if (eventos != null && !eventos.isEmpty()) {
+                ((TextView) fila.findViewById(R.id.itemEvento)).setText(
+                        Notificador.textoEvento(this, e, eventos.get(eventos.size() - 1)));
+            }
+            listaEnvios.addView(fila);
+        }
     }
 
     @Override
@@ -104,6 +197,10 @@ public class HomeActivity extends AppCompatActivity {
         if (escucha != null) {
             escucha.remove();
             escucha = null;
+        }
+        if (escuchaEnvios != null) {
+            escuchaEnvios.remove();
+            escuchaEnvios = null;
         }
     }
 
