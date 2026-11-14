@@ -5,6 +5,10 @@ service cloud.firestore {
     function me() { return get(/databases/$(db)/documents/usuarios/$(request.auth.uid)).data; }
     function isActivo() { return signedIn() && me().activo == true; }
     function isOperador() { return isActivo() && me().rol == 'OPERADOR'; }
+    function avatarValido() {
+      return request.resource.data.get('avatar', null) == null
+             || request.resource.data.avatar.size() <= 150000;
+    }
     function soloCamposDeCliente() {
       return !request.resource.data.diff(resource.data).affectedKeys()
                .hasAny(['clienteUid', 'clienteNombre', 'tracking', 'pausado']);
@@ -14,11 +18,13 @@ service cloud.firestore {
       allow read: if signedIn() && (request.auth.uid == uid || isOperador());
       allow create: if signedIn() && request.auth.uid == uid
                     && request.resource.data.rol == 'CLIENTE'
-                    && request.resource.data.activo == true;
+                    && request.resource.data.activo == true
+                    && avatarValido();
       allow update: if isOperador()
                     || (signedIn() && request.auth.uid == uid
                         && request.resource.data.rol == resource.data.rol
-                        && request.resource.data.activo == resource.data.activo);
+                        && request.resource.data.activo == resource.data.activo
+                        && avatarValido());
       allow delete: if signedIn() && request.auth.uid == uid;
     }
 

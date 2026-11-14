@@ -15,15 +15,30 @@
         android:orientation="horizontal"
         android:padding="24dp">
 
-        <TextView
-            android:id="@+id/sheetAvatar"
+        <FrameLayout
             android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_avatar"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_height="48dp">
+
+            <TextView
+                android:id="@+id/sheetAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_avatar"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/sheetAvatarFoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/perfil_foto_desc"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.TortugaTurbo.Avatar" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="0dp"

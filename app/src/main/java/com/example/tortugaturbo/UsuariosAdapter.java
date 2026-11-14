@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -95,7 +96,7 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Holder
         Usuario u = items.get(position);
         Context c = h.itemView.getContext();
         h.nombre.setText(u.getNombreCompleto());
-        h.avatar.setText(Usuario.iniciales(u));
+        Avatar.mostrar(h.avatarFoto, h.avatar, u);
         h.detalle.setText(u.getEmail());
         h.chipRol.setText(u.esOperador() ? R.string.perfil_rol_operador : R.string.perfil_rol_cliente);
         h.chipActivo.setText(u.isActivo() ? R.string.usuarios_activa : R.string.usuarios_desactivada);
@@ -116,6 +117,7 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Holder
         final TextView nombre;
         final TextView detalle;
         final TextView avatar;
+        final ImageView avatarFoto;
         final TextView tu;
         final Chip chipRol;
         final Chip chipActivo;
@@ -125,6 +127,7 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Holder
             nombre = v.findViewById(R.id.textoNombre);
             detalle = v.findViewById(R.id.textoDetalle);
             avatar = v.findViewById(R.id.avatar);
+            avatarFoto = v.findViewById(R.id.avatarFoto);
             tu = v.findViewById(R.id.textoTu);
             chipRol = v.findViewById(R.id.chipRol);
             chipActivo = v.findViewById(R.id.chipActivo);

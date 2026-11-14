@@ -123,6 +123,7 @@
     <string name="error_tracking_invalido">Número de seguimiento inválido</string>
     <string name="home_tus_envios">Tus envíos</string>
     <string name="home_todos_envios">Todos los envíos</string>
+    <string name="home_resumen_vacio">¡Creá tu primer envío!</string>
     <string name="home_resumen_nada">Todo entregado. ¡A crear otro!</string>
     <string name="home_vacio_ayuda">Tocá «Nuevo envío» para empezar</string>
     <plurals name="home_resumen_en_curso">
@@ -133,4 +134,14 @@
     <string name="demo_destinatario">Ana Pérez</string>
     <string name="demo_telefono">1122334455</string>
     <string name="demo_direccion">Av. San Martín 123</string>
+    <string name="perfil_foto_desc">Foto de perfil</string>
+    <string name="perfil_cambiar_foto">Cambiar foto</string>
+    <string name="perfil_sacar_foto">Sacar foto</string>
+    <string name="perfil_elegir_galeria">Elegir de la galería</string>
+    <string name="perfil_quitar_foto">Quitar foto</string>
+    <string name="perfil_quitar_foto_titulo">¿Quitar tu foto de perfil?</string>
+    <string name="perfil_sin_camara">No hay una app de cámara disponible</string>
+    <string name="perfil_foto_actualizada">Foto actualizada</string>
+    <string name="perfil_foto_quitada">Foto quitada</string>
+    <string name="perfil_foto_error">No se pudo procesar la imagen</string>
 </resources>

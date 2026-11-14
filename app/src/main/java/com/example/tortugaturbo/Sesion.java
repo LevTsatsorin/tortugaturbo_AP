@@ -60,6 +60,7 @@ public final class Sesion {
                 s.setApellido(u.getApellido());
                 s.setTelefono(u.getTelefono());
                 s.setActivo(u.isActivo());
+                s.setAvatar(u.getAvatar());
                 if (alCambiar != null) {
                     alCambiar.run();
                 }

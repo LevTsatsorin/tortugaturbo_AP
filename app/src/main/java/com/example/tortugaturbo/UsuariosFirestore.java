@@ -75,6 +75,23 @@ public final class UsuariosFirestore {
                 .addOnFailureListener(r::error);
     }
 
+    public static void cambiarAvatar(String uid, String avatar, Resultado<Void> r) {
+        AppExecutors.background().execute(() -> {
+            try {
+                Tasks.await(doc(uid).update("avatar", avatar), 15, TimeUnit.SECONDS);
+                AppExecutors.main().post(() -> r.ok(null));
+            } catch (ExecutionException e) {
+                Exception causa = e.getCause() instanceof Exception ? (Exception) e.getCause() : e;
+                AppExecutors.main().post(() -> r.error(causa));
+            } catch (Exception e) {
+                if (e instanceof InterruptedException) {
+                    Thread.currentThread().interrupt();
+                }
+                AppExecutors.main().post(() -> r.error(e));
+            }
+        });
+    }
+
     public static void listarTodos(Resultado<List<Usuario>> r) {
         FirebaseFirestore.getInstance().collection(COLECCION).get()
                 .addOnSuccessListener(q -> r.ok(q.toObjects(Usuario.class)))
