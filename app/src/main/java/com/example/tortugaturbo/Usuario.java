@@ -93,4 +93,10 @@ public class Usuario {
     public boolean esOperador() {
         return ROL_OPERADOR.equals(rol);
     }
+
+    public static String iniciales(Usuario u) {
+        String n = u.nombre == null ? "" : u.nombre.trim();
+        String a = u.apellido == null ? "" : u.apellido.trim();
+        return ((n.isEmpty() ? "" : n.substring(0, 1)) + (a.isEmpty() ? "" : a.substring(0, 1))).toUpperCase();
+    }
 }

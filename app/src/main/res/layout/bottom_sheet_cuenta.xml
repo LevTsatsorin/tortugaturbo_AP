@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
+    android:paddingTop="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/sheetAvatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_avatar"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/sheetNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/texto"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sheetEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/texto_secundario"
+                android:textSize="14sp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/sheetRol"
+                style="@style/Widget.TortugaTurbo.Chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                app:chipMinHeight="24dp"
+                app:ensureMinTouchTargetSize="false" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1FFFFFFF" />
+
+    <TextView
+        android:id="@+id/filaPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_person"
+        android:drawableTint="@color/texto"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24dp"
+        android:text="@string/home_menu_perfil"
+        android:textColor="@color/texto"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/filaUsuarios"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_group"
+        android:drawableTint="@color/texto"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24dp"
+        android:text="@string/home_menu_usuarios"
+        android:textColor="@color/texto"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/filaCerrar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_logout"
+        android:drawableTint="@color/peligro"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24dp"
+        android:text="@string/accion_cerrar_sesion"
+        android:textColor="@color/peligro"
+        android:textSize="16sp" />
+
+</LinearLayout>

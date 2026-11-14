@@ -54,13 +54,23 @@ public final class UsuariosFirestore {
                 .addOnFailureListener(r::error);
     }
 
-    public static void actualizar(Usuario u, Resultado<Void> r) {
+    public static void actualizarDatos(Usuario u, Resultado<Void> r) {
         doc(u.getUid()).update(
                         "nombre", u.getNombre(),
                         "apellido", u.getApellido(),
-                        "telefono", u.getTelefono(),
-                        "rol", u.getRol(),
-                        "activo", u.isActivo())
+                        "telefono", u.getTelefono())
+                .addOnSuccessListener(r::ok)
+                .addOnFailureListener(r::error);
+    }
+
+    public static void cambiarRol(String uid, String rol, Resultado<Void> r) {
+        doc(uid).update("rol", rol)
+                .addOnSuccessListener(r::ok)
+                .addOnFailureListener(r::error);
+    }
+
+    public static void cambiarActivo(String uid, boolean activo, Resultado<Void> r) {
+        doc(uid).update("activo", activo)
                 .addOnSuccessListener(r::ok)
                 .addOnFailureListener(r::error);
     }
@@ -75,6 +85,8 @@ public final class UsuariosFirestore {
         return doc(uid).addSnapshotListener((d, e) -> {
             if (e != null) {
                 r.error(e);
+            } else if (d != null && !d.exists() && d.getMetadata().isFromCache()) {
+                return;
             } else {
                 r.ok(d == null ? null : aUsuario(d));
             }

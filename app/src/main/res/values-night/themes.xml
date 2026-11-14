@@ -11,11 +11,13 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
         <item name="android:textColor">@color/texto</item>
+        <item name="textInputStyle">@style/Widget.TortugaTurbo.TextInputLayout</item>
     </style>
 
     <style name="Theme.TortugaTurbo" parent="Base.Theme.TortugaTurbo" />
 
     <style name="Widget.TortugaTurbo.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/campo_fondo</item>
         <item name="boxStrokeColor">@color/box_stroke</item>
         <item name="android:textColorHint">@color/texto_secundario</item>
         <item name="hintTextColor">@color/turbo_naranja</item>
@@ -25,5 +27,53 @@
         <item name="boxCornerRadiusTopEnd">12dp</item>
         <item name="boxCornerRadiusBottomStart">12dp</item>
         <item name="boxCornerRadiusBottomEnd">12dp</item>
+    </style>
+
+    <style name="Widget.TortugaTurbo.Card" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/superficie</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="strokeColor">#1FFFFFFF</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="Widget.TortugaTurbo.Card.Peligro">
+        <item name="strokeColor">#66FF5252</item>
+    </style>
+
+    <style name="Widget.TortugaTurbo.Button.Peligro" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textColor">@color/peligro</item>
+        <item name="strokeColor">#66FF5252</item>
+        <item name="rippleColor">#33FF5252</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <style name="Widget.TortugaTurbo.Chip" parent="Widget.Material3.Chip.Assist">
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:textColor">@color/turbo_amarillo</item>
+        <item name="chipBackgroundColor">#33FFB300</item>
+    </style>
+
+    <style name="Widget.TortugaTurbo.Chip.Activa">
+        <item name="android:textColor">@color/tortuga_verde</item>
+        <item name="chipBackgroundColor">#337CC31E</item>
+    </style>
+
+    <style name="Widget.TortugaTurbo.Chip.Desactivada">
+        <item name="android:textColor">@color/peligro</item>
+        <item name="chipBackgroundColor">#33FF5252</item>
+    </style>
+
+    <style name="Widget.TortugaTurbo.Chip.Filtro" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_filtro_fondo</item>
+        <item name="android:textColor">@color/chip_filtro_texto</item>
+        <item name="chipStrokeColor">#1FFFFFFF</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 </resources>
