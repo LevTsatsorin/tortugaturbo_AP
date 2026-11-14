@@ -103,4 +103,7 @@
     <string name="perfil_reactivar_explicacion">El usuario podrá volver a ingresar.</string>
     <string name="perfil_confirmar_rol_titulo">¿Cambiar el rol de %1$s a %2$s?</string>
     <string name="perfil_cambiar_confirmar">Cambiar</string>
+    <string name="notif_canal_nombre">Seguimiento de envíos</string>
+    <string name="notif_canal_descripcion">Avisos cuando tu envío cambia de estado</string>
+    <string name="notif_cuerpo">%1$s · %2$s</string>
 </resources>

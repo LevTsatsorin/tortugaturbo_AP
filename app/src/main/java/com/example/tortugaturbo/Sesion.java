@@ -24,6 +24,7 @@ public final class Sesion {
 
     public static void iniciar(Context c, Usuario u) {
         actual = u;
+        SimulacionScheduler.reanudarMisEnvios(c.getApplicationContext());
     }
 
     public static void cerrar(Activity a) {
