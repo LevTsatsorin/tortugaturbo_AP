@@ -21,4 +21,9 @@
     <string name="motivo_ausente">Destinatario ausente</string>
     <string name="motivo_direccion">Dirección incompleta</string>
     <string name="motivo_clima">Demora por clima</string>
+    <string name="error_sin_conexion">Sin conexión. Probá de nuevo</string>
+    <string name="error_email_duplicado">Ese email ya está registrado</string>
+    <string name="error_login">Email o contraseña incorrectos</string>
+    <string name="error_generico">Algo salió mal. Probá de nuevo</string>
+    <string name="error_cuenta_desactivada">Tu cuenta está desactivada</string>
 </resources>
