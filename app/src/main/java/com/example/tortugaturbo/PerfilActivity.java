@@ -23,6 +23,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -58,6 +59,7 @@ public class PerfilActivity extends AppCompatActivity {
     private Button botonGuardar;
     private MaterialButton botonPeligro;
     private ProgressBar progreso;
+    private ListenerRegistration escuchaSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,6 +190,21 @@ public class PerfilActivity extends AppCompatActivity {
         radioCliente.setEnabled(!ocupado);
         radioOperador.setEnabled(!ocupado);
         progreso.setVisibility(ocupado ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        escuchaSesion = Sesion.vigilar(this, null);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (escuchaSesion != null) {
+            escuchaSesion.remove();
+            escuchaSesion = null;
+        }
     }
 
     private boolean invalido(TextInputLayout til, EditText campo, int mensaje) {
@@ -328,6 +345,10 @@ public class PerfilActivity extends AppCompatActivity {
             }
             botonesDialogo(dialogo, false);
             ocupado(true);
+            if (escuchaSesion != null) {
+                escuchaSesion.remove();
+                escuchaSesion = null;
+            }
             UsuariosFirestore.eliminarMiCuenta(password, new Resultado<Void>() {
                 @Override
                 public void ok(Void x) {
@@ -350,6 +371,9 @@ public class PerfilActivity extends AppCompatActivity {
                     }
                     ocupado(false);
                     botonesDialogo(dialogo, true);
+                    if (escuchaSesion == null) {
+                        escuchaSesion = Sesion.vigilar(PerfilActivity.this, null);
+                    }
                     boolean credencial = e instanceof FirebaseAuthInvalidCredentialsException || e instanceof FirebaseAuthInvalidUserException;
                     til.setError(credencial ? getString(R.string.error_password_incorrecta) : UsuariosFirestore.mensajeError(PerfilActivity.this, e));
                 }

@@ -116,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                     Sesion.iniciar(LoginActivity.this, u);
                     Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    i.putExtra("ENVIO_ID", getIntent().getStringExtra("ENVIO_ID"));
                     startActivity(i);
                 }
             }
