@@ -1,7 +1,10 @@
 package com.example.tortugaturbo;
 
 import android.content.Intent;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +13,9 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -44,6 +49,12 @@ public class HomeActivity extends AppCompatActivity {
         textoSaludo = findViewById(R.id.textoSaludo);
         botonCuenta = findViewById(R.id.botonCuenta);
         botonCuenta.setOnClickListener(v -> abrirCuenta());
+        if (Build.VERSION.SDK_INT >= 33
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), concedido -> {
+            }).launch(Manifest.permission.POST_NOTIFICATIONS);
+        }
     }
 
     @Override
