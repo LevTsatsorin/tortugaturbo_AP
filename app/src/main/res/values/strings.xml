@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Tortuga Turbo</string>
+    <string name="estado_creado">Creado</string>
+    <string name="estado_retirado">Retirado</string>
+    <string name="estado_en_centro_origen">En centro de origen</string>
+    <string name="estado_en_transito">En tránsito</string>
+    <string name="estado_en_centro_destino">En centro de destino</string>
+    <string name="estado_en_reparto">En reparto</string>
+    <string name="estado_intento_fallido">Intento fallido</string>
+    <string name="estado_entregado">Entregado</string>
+    <string name="estado_cancelado">Cancelado</string>
+    <string name="estado_evento_creado">Envío creado</string>
+    <string name="estado_evento_retirado">Retirado por la tortuga</string>
+    <string name="estado_evento_en_centro_origen">En centro de distribución</string>
+    <string name="estado_evento_en_transito">En viaje hacia %1$s</string>
+    <string name="estado_evento_en_centro_destino">Llegó al centro de destino</string>
+    <string name="estado_evento_en_reparto">Salió a reparto</string>
+    <string name="estado_evento_intento_fallido">Intento fallido: %1$s</string>
+    <string name="estado_evento_entregado">¡Entregado!</string>
+    <string name="estado_evento_cancelado">Envío cancelado</string>
+    <string name="motivo_ausente">Destinatario ausente</string>
+    <string name="motivo_direccion">Dirección incompleta</string>
+    <string name="motivo_clima">Demora por clima</string>
 </resources>
