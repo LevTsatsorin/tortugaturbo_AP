@@ -12,4 +12,33 @@
     <string name="ciudad_ushuaia">Ushuaia</string>
     <string name="servicio_estandar">Estándar</string>
     <string name="servicio_express">Express</string>
+    <string name="detalle_qr_descripcion">Código QR del envío</string>
+    <string name="detalle_etiqueta">Etiqueta del envío</string>
+    <string name="detalle_seguimiento">Seguimiento</string>
+    <string name="detalle_paso">%1$d/7</string>
+    <string name="detalle_ruta">%1$s → %2$s · %3$s km</string>
+    <string name="detalle_servicio_precio">%1$s · %2$s · %3$s</string>
+    <plurals name="detalle_dias">
+        <item quantity="one">%d día</item>
+        <item quantity="other">%d días</item>
+    </plurals>
+    <string name="detalle_en_pausa">En pausa</string>
+    <string name="detalle_editar">Editar envío</string>
+    <string name="detalle_cancelar">Cancelar envío</string>
+    <string name="detalle_eliminar">Eliminar envío</string>
+    <string name="detalle_pausar">Pausar</string>
+    <string name="detalle_reanudar">Reanudar</string>
+    <string name="detalle_avanzar">Avanzar estado</string>
+    <string name="detalle_eliminado">Este envío ya no existe</string>
+    <string name="detalle_eliminado_ok">Envío eliminado</string>
+    <string name="detalle_cancelado">Envío cancelado</string>
+    <string name="detalle_pausado">Envío pausado</string>
+    <string name="detalle_reanudado">Envío reanudado</string>
+    <string name="detalle_avanzado">Estado avanzado</string>
+    <string name="detalle_cancelar_titulo">¿Cancelar este envío?</string>
+    <string name="detalle_cancelar_mensaje">El envío pasará a Cancelado y no va a avanzar más.</string>
+    <string name="detalle_cancelar_confirmar">Sí, cancelar</string>
+    <string name="detalle_eliminar_titulo">¿Eliminar este envío?</string>
+    <string name="detalle_eliminar_mensaje">Se borra definitivamente junto con su historial.</string>
+    <string name="detalle_eliminar_confirmar">Sí, eliminar</string>
 </resources>
