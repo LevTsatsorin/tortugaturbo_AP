@@ -106,4 +106,11 @@
     <string name="notif_canal_nombre">Seguimiento de envíos</string>
     <string name="notif_canal_descripcion">Avisos cuando tu envío cambia de estado</string>
     <string name="notif_cuerpo">%1$s · %2$s</string>
+    <string name="home_envio_prueba">Envío de prueba</string>
+    <string name="home_envio_creado">Envío %1$s creado</string>
+    <string name="home_sin_envios">Todavía no tenés envíos</string>
+    <string name="home_ruta">%1$s → %2$s</string>
+    <string name="demo_destinatario">Ana Pérez</string>
+    <string name="demo_telefono">1122334455</string>
+    <string name="demo_direccion">Av. San Martín 123</string>
 </resources>
