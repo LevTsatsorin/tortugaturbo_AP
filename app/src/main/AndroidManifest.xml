@@ -45,6 +45,12 @@
             android:exported="false" />
 
         <activity
+            android:name=".EnvioDetalleActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
+
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
 
