@@ -1,0 +1,15 @@
+<resources>
+    <string name="ciudad_buenos_aires">Buenos Aires</string>
+    <string name="ciudad_la_plata">La Plata</string>
+    <string name="ciudad_mar_del_plata">Mar del Plata</string>
+    <string name="ciudad_rosario">Rosario</string>
+    <string name="ciudad_cordoba">Córdoba</string>
+    <string name="ciudad_mendoza">Mendoza</string>
+    <string name="ciudad_tucuman">Tucumán</string>
+    <string name="ciudad_salta">Salta</string>
+    <string name="ciudad_neuquen">Neuquén</string>
+    <string name="ciudad_bariloche">Bariloche</string>
+    <string name="ciudad_ushuaia">Ushuaia</string>
+    <string name="servicio_estandar">Estándar</string>
+    <string name="servicio_express">Express</string>
+</resources>
