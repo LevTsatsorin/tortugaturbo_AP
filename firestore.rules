@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function signedIn() { return request.auth != null; }
+    function me() { return get(/databases/$(db)/documents/usuarios/$(request.auth.uid)).data; }
+    function isActivo() { return signedIn() && me().activo == true; }
+    function isOperador() { return isActivo() && me().rol == 'OPERADOR'; }
+    function soloCamposDeCliente() {
+      return !request.resource.data.diff(resource.data).affectedKeys()
+               .hasAny(['clienteUid', 'clienteNombre', 'tracking', 'pausado']);
+    }
+
+    match /usuarios/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isOperador());
+      allow create: if signedIn() && request.auth.uid == uid
+                    && request.resource.data.rol == 'CLIENTE'
+                    && request.resource.data.activo == true;
+      allow update: if isOperador()
+                    || (signedIn() && request.auth.uid == uid
+                        && request.resource.data.rol == resource.data.rol
+                        && request.resource.data.activo == resource.data.activo);
+      allow delete: if signedIn() && request.auth.uid == uid;
+    }
+
+    match /envios/{id} {
+      allow read: if signedIn() && (resource == null
+                    || resource.data.clienteUid == request.auth.uid || isOperador());
+      allow update: if isOperador()
+                    || (isActivo() && resource.data.clienteUid == request.auth.uid && soloCamposDeCliente());
+      allow delete: if isOperador()
+                    || (isActivo() && resource.data.clienteUid == request.auth.uid);
+      allow create: if isActivo() && request.resource.data.clienteUid == request.auth.uid
+                    && request.resource.data.pausado == false;
+    }
+  }
+}

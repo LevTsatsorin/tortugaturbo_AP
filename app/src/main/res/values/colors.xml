@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="tortuga_verde">#FF2E7D32</color>
+    <color name="turbo_naranja">#FFFF6F00</color>
+    <color name="fondo">#FFF4F8F1</color>
+    <color name="texto">#FF1B2A1C</color>
+    <color name="estado_creado">#FF78909C</color>
+    <color name="estado_retirado">#FF5C6BC0</color>
+    <color name="estado_en_centro_origen">#FF26A69A</color>
+    <color name="estado_en_transito">#FF1E88E5</color>
+    <color name="estado_en_centro_destino">#FF00897B</color>
+    <color name="estado_en_reparto">#FFFB8C00</color>
+    <color name="estado_intento_fallido">#FFE53935</color>
+    <color name="estado_entregado">#FF43A047</color>
+    <color name="estado_cancelado">#FF757575</color>
+</resources>

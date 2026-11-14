@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.TortugaTurbo" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/tortuga_verde</item>
+        <item name="colorSecondary">@color/turbo_naranja</item>
+    </style>
+
+    <style name="Theme.TortugaTurbo" parent="Base.Theme.TortugaTurbo" />
+</resources>
