@@ -64,4 +64,8 @@
     <string name="envio_aviso_retirado">El envío ya fue retirado</string>
     <string name="envio_crear">Crear envío</string>
     <string name="envio_guardar">Guardar cambios</string>
+    <string name="envio_preview">%1$s km · %2$s · Entrega estimada: %3$s</string>
+    <string name="error_campo_obligatorio">Campo obligatorio</string>
+    <string name="error_envio_peso">Peso entre 0,1 y 30 kg</string>
+    <string name="error_envio_destino">El destino debe ser distinto del origen</string>
 </resources>

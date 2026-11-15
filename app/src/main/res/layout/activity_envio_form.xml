@@ -165,6 +165,15 @@
                         android:backgroundTint="@color/turbo_naranja"
                         android:spinnerMode="dropdown"
                         android:prompt="@string/envio_destino"/>
+                    <TextView
+                        android:id="@+id/textErrorDestino"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:accessibilityLiveRegion="polite"
+                        android:text="@string/error_envio_destino"
+                        android:textColor="?attr/colorError"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilPeso" style="@style/Widget.TortugaTurbo.TextInputLayout"
                         android:layout_width="match_parent"
