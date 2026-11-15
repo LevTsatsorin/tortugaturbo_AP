@@ -106,6 +106,8 @@ public class EnvioDetalleActivity extends AppCompatActivity {
         botonPausar = findViewById(R.id.botonPausar);
         botonAvanzar = findViewById(R.id.botonAvanzar);
         textoEtiqueta.setText(tracking);
+        botonEditar.setOnClickListener(v -> startActivity(new Intent(this, EnvioFormActivity.class)
+                .putExtra("ENVIO_ID", tracking)));
         botonCancelar.setOnClickListener(v -> confirmarCancelar());
         botonEliminar.setOnClickListener(v -> confirmarEliminar());
         botonPausar.setOnClickListener(v -> enviar(r -> {
@@ -269,14 +271,15 @@ public class EnvioDetalleActivity extends AppCompatActivity {
         boolean cancelable = !fin && (oper || duenio);
         boolean eliminable = oper || (duenio && (estado == EstadoEnvio.CREADO
                 || estado == EstadoEnvio.ENTREGADO || estado == EstadoEnvio.CANCELADO));
-        botonEditar.setVisibility(View.GONE);
+        boolean editable = EnvioFormActivity.puedeEditar(estado, oper, duenio);
+        botonEditar.setVisibility(editable ? View.VISIBLE : View.GONE);
         botonCancelar.setVisibility(cancelable ? View.VISIBLE : View.GONE);
         botonEliminar.setVisibility(eliminable ? View.VISIBLE : View.GONE);
         boolean pausable = oper && !fin;
         filaOperador.setVisibility(pausable ? View.VISIBLE : View.GONE);
         botonPausar.setText(e.isPausado() ? R.string.detalle_reanudar : R.string.detalle_pausar);
         botonAvanzar.setVisibility(e.isPausado() ? View.GONE : View.VISIBLE);
-        cardAcciones.setVisibility(cancelable || eliminable || pausable ? View.VISIBLE : View.GONE);
+        cardAcciones.setVisibility(editable || cancelable || eliminable || pausable ? View.VISIBLE : View.GONE);
         habilitar();
     }
 

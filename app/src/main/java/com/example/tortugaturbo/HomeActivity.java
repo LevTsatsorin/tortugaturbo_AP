@@ -123,7 +123,7 @@ public class HomeActivity extends AppCompatActivity {
         lista.setLayoutManager(new LinearLayoutManager(this));
         lista.setAdapter(adapter);
         botonNuevo = findViewById(R.id.botonNuevo);
-        botonNuevo.setOnClickListener(v -> crearPrueba());
+        botonNuevo.setOnClickListener(v -> startActivity(new Intent(this, EnvioFormActivity.class)));
         tilBuscar.setEndIconOnClickListener(v -> buscar());
         campoBuscar.setOnEditorActionListener((v, accion, ev) -> {
             if (accion == EditorInfo.IME_ACTION_SEARCH) {
@@ -262,44 +262,6 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 })
                 .addOnFailureListener(ex -> Toast.makeText(this, R.string.home_error_escaner, Toast.LENGTH_SHORT).show());
-    }
-
-    private void crearPrueba() {
-        botonNuevo.setEnabled(false);
-        progresoEnvio.setVisibility(View.VISIBLE);
-        Envio b = new Envio();
-        b.setDestinatarioNombre(getString(R.string.demo_destinatario));
-        b.setDestinatarioTelefono(getString(R.string.demo_telefono));
-        b.setDireccion(getString(R.string.demo_direccion));
-        b.setOrigen(Ciudad.BUENOS_AIRES.name());
-        b.setDestino(Ciudad.USHUAIA.name());
-        b.setPesoKg(1.5);
-        b.setServicio(Servicio.EXPRESS.name());
-        b.setDescripcion("");
-        EnviosFirestore.crear(this, b, new Resultado<String>() {
-            @Override
-            public void ok(String tracking) {
-                if (isFinishing() || isDestroyed()) {
-                    return;
-                }
-                terminarPrueba();
-                abrirDetalle(tracking);
-            }
-
-            @Override
-            public void error(Exception e) {
-                if (isFinishing() || isDestroyed()) {
-                    return;
-                }
-                terminarPrueba();
-                Toast.makeText(HomeActivity.this, UsuariosFirestore.mensajeError(HomeActivity.this, e), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void terminarPrueba() {
-        botonNuevo.setEnabled(true);
-        progresoEnvio.setVisibility(View.GONE);
     }
 
     private void mostrarEnvios(List<Envio> lista) {
