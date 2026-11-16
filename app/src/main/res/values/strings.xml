@@ -131,9 +131,6 @@
         <item quantity="other">Tenés %d envíos en camino</item>
     </plurals>
     <string name="home_ruta">%1$s → %2$s</string>
-    <string name="demo_destinatario">Ana Pérez</string>
-    <string name="demo_telefono">1122334455</string>
-    <string name="demo_direccion">Av. San Martín 123</string>
     <string name="perfil_foto_desc">Foto de perfil</string>
     <string name="perfil_cambiar_foto">Cambiar foto</string>
     <string name="perfil_sacar_foto">Sacar foto</string>
