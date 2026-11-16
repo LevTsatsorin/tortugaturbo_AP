@@ -2,10 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="tortuga_verde">#FF2E7D32</color>
-    <color name="turbo_naranja">#FFFF6F00</color>
-    <color name="fondo">#FFF4F8F1</color>
-    <color name="texto">#FF1B2A1C</color>
+    <color name="tortuga_verde">#FF7CC31E</color>
+    <color name="turbo_naranja">#FFFF6A00</color>
+    <color name="fondo">#FF15100B</color>
+    <color name="texto">#FFFFFFFF</color>
     <color name="estado_creado">#FF78909C</color>
     <color name="estado_retirado">#FF5C6BC0</color>
     <color name="estado_en_centro_origen">#FF26A69A</color>
@@ -15,4 +15,11 @@
     <color name="estado_intento_fallido">#FFE53935</color>
     <color name="estado_entregado">#FF43A047</color>
     <color name="estado_cancelado">#FF757575</color>
+    <color name="superficie">#FF241A12</color>
+    <color name="texto_secundario">#B3FFFFFF</color>
+    <color name="turbo_amarillo">#FFFFB300</color>
+    <color name="campo_fondo">#FF2E2219</color>
+    <color name="peligro">#FFFF6B6B</color>
+    <color name="chip_activa_fondo">#337CC31E</color>
+    <color name="chip_desactivada_fondo">#33FF5252</color>
 </resources>
