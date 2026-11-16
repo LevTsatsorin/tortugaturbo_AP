@@ -19,7 +19,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
-import androidx.core.graphics.ColorUtils;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -208,13 +207,11 @@ public class EnvioDetalleActivity extends AppCompatActivity {
         }
         int color = ContextCompat.getColor(this, estado.getColor());
         chipEstado.setText(estado.getEtiqueta());
-        chipEstado.setTextColor(color);
-        chipEstado.setChipBackgroundColor(ColorStateList.valueOf(ColorUtils.setAlphaComponent(color, 0x33)));
+        chipEstado.setChipBackgroundColor(ColorStateList.valueOf(color));
         boolean cancelado = estado == EstadoEnvio.CANCELADO;
         int paso = estado.getPaso();
         progreso.setProgress(paso);
-        progreso.setIndicatorColor(cancelado ? ContextCompat.getColor(this, R.color.estado_cancelado)
-                : ContextCompat.getColor(this, R.color.turbo_naranja));
+        progreso.setIndicatorColor(ContextCompat.getColor(this, cancelado ? R.color.estado_cancelado : R.color.white));
         textoPaso.setText(getString(R.string.detalle_paso, paso));
 
         textoRuta.setText(getString(R.string.detalle_ruta,

@@ -29,7 +29,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.mlkit.vision.barcode.common.Barcode;
@@ -92,11 +91,6 @@ public class HomeActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.ime());
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
-            if (insets.isVisible(WindowInsetsCompat.Type.ime())) {
-                ((ExtendedFloatingActionButton) botonNuevo).hide();
-            } else {
-                ((ExtendedFloatingActionButton) botonNuevo).show();
-            }
             return insets;
         });
         textoSaludo = findViewById(R.id.textoSaludo);

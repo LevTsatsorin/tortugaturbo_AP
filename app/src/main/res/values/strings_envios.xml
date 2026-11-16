@@ -50,7 +50,7 @@
     <string name="envio_hint_telefono">Teléfono del destinatario</string>
     <string name="envio_helper_telefono">Entre 8 y 15 dígitos, sin espacios ni símbolos.</string>
     <string name="envio_hint_direccion">Dirección de entrega</string>
-    <string name="envio_helper_direccion">Ingresá calle, número y departamento, si corresponde.</string>
+    <string name="envio_helper_direccion">Calle, número y depto. en la ciudad de destino.</string>
     <string name="envio_seccion_paquete">El viaje de tu paquete</string>
     <string name="envio_origen">Ciudad de origen</string>
     <string name="envio_destino">Ciudad de destino</string>
@@ -64,7 +64,10 @@
     <string name="envio_aviso_retirado">El envío ya fue retirado</string>
     <string name="envio_crear">Crear envío</string>
     <string name="envio_guardar">Guardar cambios</string>
-    <string name="envio_preview">%1$s km · %2$s · Entrega estimada: %3$s</string>
+    <string name="envio_dato_distancia">Distancia</string>
+    <string name="envio_dato_precio">Precio</string>
+    <string name="envio_dato_entrega">Entrega</string>
+    <string name="envio_km">%1$s km</string>
     <string name="error_campo_obligatorio">Campo obligatorio</string>
     <string name="error_envio_peso">Peso entre 0,1 y 30 kg</string>
     <string name="error_envio_destino">El destino debe ser distinto del origen</string>
