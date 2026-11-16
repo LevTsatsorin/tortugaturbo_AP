@@ -42,7 +42,11 @@ public class EnvioFormActivity extends AppCompatActivity {
     private Spinner origen;
     private Spinner destino;
     private RadioGroup servicio;
-    private TextView preview;
+    private View preview;
+    private View ayudaEstimacion;
+    private TextView textKm;
+    private TextView textPrecio;
+    private TextView textDias;
     private TextView errorDestino;
     private Button guardar;
     private View progreso;
@@ -89,6 +93,10 @@ public class EnvioFormActivity extends AppCompatActivity {
         destino = findViewById(R.id.spinnerDestino);
         servicio = findViewById(R.id.radioServicio);
         preview = findViewById(R.id.textPreview);
+        ayudaEstimacion = findViewById(R.id.textAyudaEstimacion);
+        textKm = findViewById(R.id.textKm);
+        textPrecio = findViewById(R.id.textPrecio);
+        textDias = findViewById(R.id.textDias);
         errorDestino = findViewById(R.id.textErrorDestino);
         guardar = findViewById(R.id.botonGuardar);
         progreso = findViewById(R.id.progreso);
@@ -172,6 +180,7 @@ public class EnvioFormActivity extends AppCompatActivity {
         if (kg == null || origen.getSelectedItemPosition() < 0 || destino.getSelectedItemPosition() < 0
                 || ciudad(origen) == ciudad(destino)) {
             preview.setVisibility(View.GONE);
+            ayudaEstimacion.setVisibility(View.VISIBLE);
             return;
         }
         int km = Tarifador.distanciaKm(ciudad(origen), ciudad(destino));
@@ -179,10 +188,11 @@ public class EnvioFormActivity extends AppCompatActivity {
         int dias = Tarifador.diasEstimados(km, tipo);
         NumberFormat moneda = NumberFormat.getCurrencyInstance(AR);
         moneda.setMaximumFractionDigits(0);
-        preview.setText(getString(R.string.envio_preview, NumberFormat.getIntegerInstance(AR).format(km),
-                moneda.format(Tarifador.precio(kg, km, tipo)),
-                getResources().getQuantityString(R.plurals.detalle_dias, dias, dias)));
+        textKm.setText(getString(R.string.envio_km, NumberFormat.getIntegerInstance(AR).format(km)));
+        textPrecio.setText(moneda.format(Tarifador.precio(kg, km, tipo)));
+        textDias.setText(getResources().getQuantityString(R.plurals.detalle_dias, dias, dias));
         preview.setVisibility(View.VISIBLE);
+        ayudaEstimacion.setVisibility(View.GONE);
     }
 
     private boolean invalido(int layoutId, EditText campo, int mensaje) {
@@ -200,13 +210,13 @@ public class EnvioFormActivity extends AppCompatActivity {
         if (Tarifador.parsearPeso(texto(peso)) == null) {
             valido = invalido(R.id.tilPeso, peso, R.string.error_envio_peso);
         }
+        if (texto(direccion).isEmpty()) {
+            valido = invalido(R.id.tilDireccion, direccion, R.string.error_campo_obligatorio);
+        }
         if (ciudad(origen) == ciudad(destino)) {
             errorDestino.setVisibility(View.VISIBLE);
             destino.requestFocus();
             valido = false;
-        }
-        if (texto(direccion).isEmpty()) {
-            valido = invalido(R.id.tilDireccion, direccion, R.string.error_campo_obligatorio);
         }
         if (!RegistroActivity.esTelefonoValido(texto(telefono))) {
             valido = invalido(R.id.tilTelDestinatario, telefono, R.string.error_telefono_invalido);
